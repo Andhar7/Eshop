@@ -1,61 +1,62 @@
-# 🛍 ERD - Интернет-магазин одежды (Django + HTMX + Alpine.js)
+ ```markdown
+# 🛍 ERD - Online Clothing Store (Django + HTMX + Alpine.js)
 
-## 🌟 Особенности проекта
-- **Современный стек**: Django + HTMX + Alpine.js
-- **Две платежные системы**: Stripe и Heleket (крипто)
-- **Docker-контейнеризация** с PostgreSQL
-- **Кастомизированная модель пользователя**
-- **Защищенные настройки** (CSRF, HTTPS, Security Headers)
+## 🌟 Project Features
+- **Modern stack**: Django + HTMX + Alpine.js
+- **Two payment systems**: Stripe and Heleket (crypto)
+- **Docker containerization** with PostgreSQL
+- **Custom user model**
+- **Secured settings** (CSRF, HTTPS, Security Headers)
 
-## 🚀 Запуск проекта
+## 🚀 Project Launch
 
-### 1. Локальный запуск (без Docker)
+### 1. Local Launch (without Docker)
 
-1. Установите зависимости:
+1. Install dependencies:
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-2. Создайте и активируйте виртуальное окружение:
+2. Create and activate a virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate    # Windows
 ```
 
-3. Настройте переменные окружения:
+3. Set up environment variables:
 ```
-# Заполните .env своими значениями(пример .env ниже)
+# Fill in your values in .env (example .env below)
 ```
 
-4. Запустите миграции:
+4. Run migrations:
 ```bash
 python manage.py migrate
 ```
 
-5. Создайте суперпользователя:
+5. Create a superuser:
 ```bash
 python manage.py createsuperuser
 ```
 
-6. Запустите сервер:
+6. Start the server:
 ```bash
 python manage.py runserver
 ```
 
-### 2. Запуск на сервере (с SSL)
+### 2. Server Launch (with SSL)
 
-1. Подготовьте домен:
-   - Укажите DNS запись для `domen.com` на ваш IP
+1. Prepare your domain:
+   - Set the DNS record for `domen.com` to your IP
 
-2. Настройте `.env`:
+2. Configure `.env`:
 ```ini
 SECRET_KEY='example'
 
 POSTGRES_DB=enfdb
 POSTGRES_USER=enfdb
 POSTGRES_PASSWORD=enfdb
-POSTGRES_HOST=localhost # db если запускаете на vps
+POSTGRES_HOST=localhost # use 'db' if running on VPS
 POSTGRES_PORT=5432
 
 STRIPE_SECRET_KEY='example'
@@ -65,52 +66,53 @@ HELEKET_API_KEY='example'
 HELEKET_SECRET_KEY='example'
 ```
 
-3. Получите сертификаты (certbot):
+3. Obtain certificates (certbot):
 ```bash
 sudo certbot --nginx -d domen.com -d www.domen.com
 ```
 
-4. Соберите контейнер:
+4. Build the container:
 ```bash
 docker-compose up --build -d
 ```
 
-5. Соберите статику:
+5. Collect static files:
 ```bash
 docker-compose exec web python manage.py collectstatic --no-input
 ```
 
-## 🔒 Настройки безопасности
-Проект предварительно настроен с:
-- CSRF защитой
+## 🔒 Security Settings
+The project is pre-configured with:
+- CSRF protection
 - Secure cookies
 - Security Headers
-- HTTPS при работе через Docker
+- HTTPS when running via Docker
 
-## 🌍 Доступ к сайту
-- Локально: [http://localhost:8000](http://localhost:8000)
-- В Docker с SSL: [https://domen.com](https://domen.com)
+## 🌍 Site Access
+- Locally: [http://localhost:8000](http://localhost:8000)
+- In Docker with SSL: [https://domen.com](https://domen.com)
 
-## ⚙️ Важные настройки из settings.py
+## ⚙️ Important settings from settings.py
 ```python
-# Безопасность
+# Security
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 
-# База данных
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB'),
-        # ... другие параметры
+        # ... other parameters
     }
 }
 
-# Платежные системы
+# Payment systems
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 HELEKET_API_KEY = os.getenv('HELEKET_API_KEY')
 ```
 
-## 🛠 Гайд на деплой
+## 🛠 Deployment Guide
 [https://github.com/s6ptember/for-deploy-guide.git]
+```
