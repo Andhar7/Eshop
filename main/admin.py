@@ -1,6 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import Category, Size, Product, ProductImage, ProductSize
 
 class ProductImageInline(admin.TabularInline):
@@ -29,6 +27,6 @@ class SizeAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Size, SizeAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(ProductImage)
-admin.site.register(ProductSize)
+# admin.site.register(ProductImage)
+# admin.site.register(ProductSize)
 
