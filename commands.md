@@ -12,3 +12,7 @@ python3 manage.py createsuperuser
 
 python3 manage.py runserver
 
+python manage.py startapp cart
+
+
+
